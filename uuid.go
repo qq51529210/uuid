@@ -14,12 +14,12 @@ import (
 const uuidLength = 36
 
 var (
-	hexTable   = []byte("0123456789ABCDEF")
-	uuidNode   [6]byte
-	uuidClock  uint16
-	uuidV2GID  uint32
-	uuidV2UID  uint32
-	uuidV4Rand *rand.Rand
+	hexTable      = []byte("0123456789ABCDEF")
+	uuidNode      [6]byte
+	uuidClock     uint16
+	uuidV2GID     uint32
+	uuidV2UID     uint32
+	uuidV4Rand    *rand.Rand
 )
 
 func init() {
@@ -195,9 +195,9 @@ func V2Uid() string {
 }
 
 // name md5
-func V3(uuid, name string) string {
+func V3(namespace, name string) string {
 	h := md5.New()
-	h.Write(unsafeBytesFromString(&uuid))
+	h.Write(unsafeBytesFromString(&namespace))
 	h.Write(unsafeBytesFromString(&name))
 	var buf [uuidLength]byte
 	putHash(buf[0:], h.Sum(nil))
@@ -228,9 +228,9 @@ func V4() string {
 }
 
 // name sha-1
-func V5(uuid, name string) string {
+func V5(namespace, name string) string {
 	h := sha1.New()
-	h.Write(unsafeBytesFromString(&uuid))
+	h.Write(unsafeBytesFromString(&namespace))
 	h.Write(unsafeBytesFromString(&name))
 	var buf [uuidLength]byte
 	putHash(buf[0:], h.Sum(nil))
