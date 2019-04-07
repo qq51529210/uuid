@@ -46,16 +46,6 @@ func SetNode(node [6]byte) {
 	copy(uuidNode[0:], node[0:])
 }
 
-// set posix gid
-func SetV2GID(id uint32) {
-	uuidV2GID = id
-}
-
-// set posix uid
-func SetV2UID(id uint32) {
-	uuidV2UID = id
-}
-
 func put32(b []byte, n uint32) {
 	b[0] = uint8(n >> 24)
 	b[2] = uint8(n >> 16)
