@@ -51,7 +51,6 @@ v5id := uuid.V3("specify namespace", "specify name")
 </pre>
 
 <h5>下面是测试</h5>
-<pre>
 <code>
 bogon:go ben$ go test -bench=. github.com/qq51529210/uuid
 goos: darwin
@@ -70,4 +69,3 @@ BenchmarkV5_Satori-4     5000000               344 ns/op
 PASS 
 ok      github.com/qq51529210/uuid      18.457s 
 </cdoe>
-</pre>
