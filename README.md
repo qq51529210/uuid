@@ -30,8 +30,8 @@ V4的话，随机数是有可能重复的！<br>
 V3/V5，由于是哈希，只要namespace和name不一样，就是不一样。</p>
 
 <h5>使用方法</h5>
-<code>
 <pre>
+<code>
 // 不使用MAC地址，针对v1,v2
 var new_node [6]byte
 uuid.SetNode(new_node)
@@ -47,12 +47,12 @@ v3id := uuid.V3("specify namespace", "specify name")
 v4id := uuid.V4()
 // sha1，同v3
 v5id := uuid.V3("specify namespace", "specify name")
-</pre>
 </cdoe>
+</pre>
 
 <h5>下面是测试</h5>
-<code>
 <pre>
+<code>
 bogon:go ben$ go test -bench=. github.com/qq51529210/uuid
 goos: darwin
 goarch: amd64 
@@ -69,5 +69,5 @@ BenchmarkV5_My-4         5000000               309 ns/op
 BenchmarkV5_Satori-4     5000000               344 ns/op 
 PASS 
 ok      github.com/qq51529210/uuid      18.457s 
-</pre>
 </cdoe>
+</pre>
