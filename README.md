@@ -30,8 +30,8 @@ V4的话，随机数是有可能重复的！<br>
 V3/V5，由于是哈希，只要namespace和name不一样，就是不一样。</p>
 
 <h5>使用方法</h5>
+<p>
 <pre>
-<code>
 // 不使用MAC地址，针对v1,v2
 var new_node [6]byte
 uuid.SetNode(new_node)
@@ -47,8 +47,8 @@ v3id := uuid.V3("specify namespace", "specify name")
 v4id := uuid.V4()
 // sha1，同v3
 v5id := uuid.V3("specify namespace", "specify name")
-</cdoe>
 </pre>
+</p>
 
 <h5>下面是测试</h5>
 <pre>
