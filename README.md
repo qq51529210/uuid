@@ -37,4 +37,27 @@
 <p>V3/V5，由于是哈希，只要namespace和name不一样，就是不一样。</p>
 </li>
 
+<li>
+<strong>下面是测试</strong>
+<pre>
+<code>
+bogon:go ben$ go test -bench=. github.com/qq51529210/uuid
+goos: darwin
+goarch: amd64 
+pkg: github.com/qq51529210/uuid 
+BenchmarkV1_My-4        10000000               143 ns/op 
+BenchmarkV1_Satori-4    10000000               238 ns/op 
+BenchmarkV2_My-4        10000000               143 ns/op 
+BenchmarkV2_Satori-4     5000000               255 ns/op 
+BenchmarkV3_My-4         5000000               291 ns/op 
+BenchmarkV3_Satori-4     5000000               328 ns/op 
+BenchmarkV4_My-4        20000000               103 ns/op 
+BenchmarkV4_Satori-4     1000000              1217 ns/op 
+BenchmarkV5_My-4         5000000               309 ns/op 
+BenchmarkV5_Satori-4     5000000               344 ns/op 
+PASS 
+ok      github.com/qq51529210/uuid      18.457s 
+</cdoe>
+</pre>
+</li>
 </ul>
