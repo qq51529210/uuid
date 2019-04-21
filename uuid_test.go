@@ -29,12 +29,16 @@ func TestV5(t *testing.T) {
 }
 
 func BenchmarkV1_My(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		V1()
 	}
 }
 
 func BenchmarkV1_Satori(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		uuid, e := satori_uuid.NewV1()
 		if nil != e {
@@ -45,12 +49,16 @@ func BenchmarkV1_Satori(b *testing.B) {
 }
 
 func BenchmarkV2_My(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		V2(uint32(i))
 	}
 }
 
 func BenchmarkV2_Satori(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		uuid, e := satori_uuid.NewV2(byte(i % 2))
 		if nil != e {
@@ -61,6 +69,8 @@ func BenchmarkV2_Satori(b *testing.B) {
 }
 
 func BenchmarkV3_My(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	id := V1()
 	for i := 0; i < b.N; i++ {
 		V3(id, "md5")
@@ -68,6 +78,8 @@ func BenchmarkV3_My(b *testing.B) {
 }
 
 func BenchmarkV3_Satori(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	id, e := satori_uuid.NewV1()
 	if nil != e {
 		b.Fatal(e)
@@ -79,12 +91,16 @@ func BenchmarkV3_Satori(b *testing.B) {
 }
 
 func BenchmarkV4_My(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		V4()
 	}
 }
 
 func BenchmarkV4_Satori(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		uuid, e := satori_uuid.NewV4()
 		if nil != e {
@@ -95,6 +111,8 @@ func BenchmarkV4_Satori(b *testing.B) {
 }
 
 func BenchmarkV5_My(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	id := V2(rand.Uint32())
 	for i := 0; i < b.N; i++ {
 		V5(id, "namespace-sha1")
@@ -102,6 +120,8 @@ func BenchmarkV5_My(b *testing.B) {
 }
 
 func BenchmarkV5_Satori(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
 	id, e := satori_uuid.NewV2(0)
 	if nil != e {
 		b.Fatal(e)
