@@ -169,9 +169,9 @@ func (this *UUID) String() string {
 
 // 返回uuid的字符串，但是没有'-'
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-func (this *UUID) StringWithoutHyphen() string {
+func (this *UUID) StringShort() string {
 	var buf [32]byte
-	HexWithoutHyphen(buf, this)
+	HexShort(buf, this)
 	return string(buf[0:])
 }
 
@@ -221,7 +221,7 @@ func Hex(buf [36]byte, uuid *UUID) {
 
 // 返回uuid的字符串，没有'-'
 // 一般用于缓存
-func HexWithoutHyphen(buf [32]byte, uuid *UUID) {
+func HexShort(buf [32]byte, uuid *UUID) {
 	i, j := 0, 0
 	for ; i < 16; i++ {
 		buf[j] = hexTable[uuid[i]>>4]
@@ -238,6 +238,12 @@ func V1() string {
 	return uuid.String()
 }
 
+func V1Short() string {
+	uuid := UUID{}
+	uuid.V1()
+	return uuid.StringShort()
+}
+
 // 看UUID.V2()
 func V2(id uint32) string {
 	uuid := UUID{}
@@ -245,14 +251,28 @@ func V2(id uint32) string {
 	return uuid.String()
 }
 
+func V2Short(id uint32) string {
+	uuid := UUID{}
+	uuid.V2(id)
+	return uuid.StringShort()
+}
+
 // 看UUID.V2GID()
 func V2GID() string {
 	return V2(uuidV2GID)
 }
 
+func V2GIDShort() string {
+	return V2Short(uuidV2GID)
+}
+
 // 看UUID.V2UID()
 func V2UID() string {
 	return V2(uuidV2UID)
+}
+
+func V2UIDShort() string {
+	return V2Short(uuidV2UID)
 }
 
 // 看UUID.V3()
@@ -262,11 +282,23 @@ func V3(namespace, name []byte) string {
 	return uuid.String()
 }
 
+func V3Short(namespace, name []byte) string {
+	uuid := UUID{}
+	uuid.V3(namespace, name)
+	return uuid.StringShort()
+}
+
 // 看UUID.V3()
 func V3WithHash(namespace, name []byte, hash hash.Hash) string {
 	uuid := UUID{}
 	uuid.V3WithHash(namespace, name, hash)
 	return uuid.String()
+}
+
+func V3ShortWithHash(namespace, name []byte, hash hash.Hash) string {
+	uuid := UUID{}
+	uuid.V3WithHash(namespace, name, hash)
+	return uuid.StringShort()
 }
 
 // 看UUID.V4()
@@ -276,6 +308,12 @@ func V4() string {
 	return uuid.String()
 }
 
+func V4Short() string {
+	uuid := UUID{}
+	uuid.V4()
+	return uuid.StringShort()
+}
+
 // 看UUID.V5()
 func V5(namespace, name []byte) string {
 	uuid := UUID{}
@@ -283,9 +321,21 @@ func V5(namespace, name []byte) string {
 	return uuid.String()
 }
 
+func V5Short(namespace, name []byte) string {
+	uuid := UUID{}
+	uuid.V5(namespace, name)
+	return uuid.StringShort()
+}
+
 // 看UUID.V5WithHash()
 func V5WithHash(namespace, name []byte, hash hash.Hash) string {
 	uuid := UUID{}
 	uuid.V5WithHash(namespace, name, hash)
 	return uuid.String()
+}
+
+func V5ShortWithHash(namespace, name []byte, hash hash.Hash) string {
+	uuid := UUID{}
+	uuid.V5WithHash(namespace, name, hash)
+	return uuid.StringShort()
 }
