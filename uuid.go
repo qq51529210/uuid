@@ -163,7 +163,7 @@ func (this *UUID) Int() (uint64, uint64) {
 // xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 func (this *UUID) String() string {
 	var buf [36]byte
-	Hex(buf, this)
+	this.Hex(buf[0:])
 	return string(buf[0:])
 }
 
@@ -171,62 +171,64 @@ func (this *UUID) String() string {
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 func (this *UUID) StringShort() string {
 	var buf [32]byte
-	HexShort(buf, this)
+	this.HexShort(buf[0:])
 	return string(buf[0:])
 }
 
 // 返回uuid的字符串
 // 一般用于缓存
-func Hex(buf [36]byte, uuid *UUID) {
+// buf长度不能小于36
+func (this *UUID) Hex(buf []byte) {
 	i, j := 0, 0
 	for ; i < 4; i++ {
-		buf[j] = hexTable[uuid[i]>>4]
+		buf[j] = hexTable[this[i]>>4]
 		j++
-		buf[j] = hexTable[uuid[i]&0x0f]
+		buf[j] = hexTable[this[i]&0x0f]
 		j++
 	}
 	buf[8] = '-'
 	j = 9
 	for ; i < 6; i ++ {
-		buf[j] = hexTable[uuid[i]>>4]
+		buf[j] = hexTable[this[i]>>4]
 		j++
-		buf[j] = hexTable[uuid[i]&0x0f]
+		buf[j] = hexTable[this[i]&0x0f]
 		j++
 	}
 	buf[13] = '-'
 	j = 14
 	for ; i < 8; i ++ {
-		buf[j] = hexTable[uuid[i]>>4]
+		buf[j] = hexTable[this[i]>>4]
 		j++
-		buf[j] = hexTable[uuid[i]&0x0f]
+		buf[j] = hexTable[this[i]&0x0f]
 		j++
 	}
 	buf[18] = '-'
 	j = 19
 	for ; i < 10; i ++ {
-		buf[j] = hexTable[uuid[i]>>4]
+		buf[j] = hexTable[this[i]>>4]
 		j++
-		buf[j] = hexTable[uuid[i]&0x0f]
+		buf[j] = hexTable[this[i]&0x0f]
 		j++
 	}
 	buf[23] = '-'
 	j = 24
 	for ; i < 16; i ++ {
-		buf[j] = hexTable[uuid[i]>>4]
+		buf[j] = hexTable[this[i]>>4]
 		j++
-		buf[j] = hexTable[uuid[i]&0x0f]
+		buf[j] = hexTable[this[i]&0x0f]
 		j++
 	}
 }
 
 // 返回uuid的字符串，没有'-'
 // 一般用于缓存
-func HexShort(buf [32]byte, uuid *UUID) {
+// buf长度不能小于32
+func (this *UUID) HexShort(buf []byte) {
 	i, j := 0, 0
 	for ; i < 16; i++ {
-		buf[j] = hexTable[uuid[i]>>4]
+		buf[j] = hexTable[this[i]>>4]
 		j++
-		buf[j] = hexTable[uuid[i]&0x0f]
+		buf[j] = hexTable[this[i]&0x0f]
 		j++
 	}
 }
