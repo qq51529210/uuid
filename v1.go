@@ -13,13 +13,13 @@ var (
 
 func init() {
 	// init node with MAC address
-	addrs, err := net.Interfaces()
+	addr, err := net.Interfaces()
 	if nil != err {
 		panic(err)
 	}
-	for i := 0; i < len(addrs); i++ {
-		if len(addrs[i].HardwareAddr) >= 6 {
-			copy(_node[0:], addrs[i].HardwareAddr)
+	for i := 0; i < len(addr); i++ {
+		if len(addr[i].HardwareAddr) >= 6 {
+			copy(_node[0:], addr[i].HardwareAddr)
 			break
 		}
 	}
