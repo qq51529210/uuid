@@ -17,7 +17,7 @@ func init() {
 }
 
 // 版本2，和版本1相同，但会把时间戳的前4位置换为POSIX的UID或GID
-func (u UUID) V2(id int) {
+func (u *UUID) V2(id int) {
 	// timestamp
 	ts := uint64(time.Now().UTC().UnixNano())
 	// id
@@ -36,12 +36,12 @@ func (u UUID) V2(id int) {
 }
 
 // 版本2，用的是gid
-func (u UUID) V2_GID() {
+func (u *UUID) V2_GID() {
 	u.V2(_gid)
 }
 
 // 版本2，用的是uid
-func (u UUID) V2_UID() {
+func (u *UUID) V2_UID() {
 	u.V2(_uid)
 }
 

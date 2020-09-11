@@ -40,7 +40,7 @@ func SetRandomNode() {
 }
 
 // 版本1，机器的时间戳和Node决定(默认是MAC地址)
-func (u UUID) V1() {
+func (u *UUID) V1() {
 	// timestamp
 	ts := uint64(time.Now().UTC().UnixNano())
 	// time low

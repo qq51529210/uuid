@@ -15,7 +15,7 @@ func init() {
 }
 
 // 版本3，计算名字和名字空间的md5散列值
-func (u UUID) V3(namespace, name []byte) {
+func (u *UUID) V3(namespace, name []byte) {
 	hash := _md5.Get().(hash.Hash)
 	hash.Reset()
 	hash.Write(namespace)

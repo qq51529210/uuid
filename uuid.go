@@ -4,13 +4,14 @@ import (
 	"encoding/binary"
 )
 
-type UUID [16]byte
+// 前16字节：数据，后36字节：格式化后的字符串
+type UUID [16 + 36]byte
 
 var (
 	hexTable = []byte("0123456789ABCDEF")
 )
 
-func (u UUID) initVersionAndVariant(n byte) {
+func (u *UUID) initVersionAndVariant(n byte) {
 	// version
 	u[7] = (u[7] & 0x0f) | n
 	// variant
@@ -18,70 +19,70 @@ func (u UUID) initVersionAndVariant(n byte) {
 }
 
 // uuid其实是一个128位，所以它可以是两个64位的整数，有时候使用两个64位的整数，可能查询性能高一点
-func (u UUID) Uint64() (uint64, uint64) {
+func (u *UUID) Uint64() (uint64, uint64) {
 	return binary.BigEndian.Uint64(u[0:]), binary.BigEndian.Uint64(u[8:])
 }
 
 // 返回uuid的字符串，xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 // buf的长度必须大于32
-func (u UUID) HexWithHyphen(buf []byte) string {
-	i, j := 0, 0
+func (u *UUID) HexWithHyphen() string {
+	i, j := 0, 16
 	for ; i < 4; i++ {
-		buf[j] = hexTable[u[i]>>4]
+		u[j] = hexTable[u[i]>>4]
 		j++
-		buf[j] = hexTable[u[i]&0x0f]
+		u[j] = hexTable[u[i]&0x0f]
 		j++
 	}
-	buf[8] = '-'
-	j = 9
+	u[j] = '-'
+	j++
 	for ; i < 6; i++ {
-		buf[j] = hexTable[u[i]>>4]
+		u[j] = hexTable[u[i]>>4]
 		j++
-		buf[j] = hexTable[u[i]&0x0f]
+		u[j] = hexTable[u[i]&0x0f]
 		j++
 	}
-	buf[13] = '-'
-	j = 14
+	u[j] = '-'
+	j++
 	for ; i < 8; i++ {
-		buf[j] = hexTable[u[i]>>4]
+		u[j] = hexTable[u[i]>>4]
 		j++
-		buf[j] = hexTable[u[i]&0x0f]
+		u[j] = hexTable[u[i]&0x0f]
 		j++
 	}
-	buf[18] = '-'
-	j = 19
+	u[j] = '-'
+	j++
 	for ; i < 10; i++ {
-		buf[j] = hexTable[u[i]>>4]
+		u[j] = hexTable[u[i]>>4]
 		j++
-		buf[j] = hexTable[u[i]&0x0f]
+		u[j] = hexTable[u[i]&0x0f]
 		j++
 	}
-	buf[23] = '-'
-	j = 24
+	u[j] = '-'
+	j++
 	for ; i < 16; i++ {
-		buf[j] = hexTable[u[i]>>4]
+		u[j] = hexTable[u[i]>>4]
 		j++
-		buf[j] = hexTable[u[i]&0x0f]
+		u[j] = hexTable[u[i]&0x0f]
 		j++
 	}
-	return string(buf[0:])
+	return string(u[16:])
 }
 
 // 返回uuid的字符串，没有'-'
 // buf的长度必须大于28
-func (u UUID) Hex(buf []byte) {
-	i, j := 0, 0
+func (u *UUID) Hex() string {
+	i, j := 0, 16
 	for ; i < 16; i++ {
-		buf[j] = hexTable[u[i]>>4]
+		u[j] = hexTable[u[i]>>4]
 		j++
-		buf[j] = hexTable[u[i]&0x0f]
+		u[j] = hexTable[u[i]&0x0f]
 		j++
 	}
+	// 16+36-4
+	return string(u[16:48])
 }
 
 // 返回uuid的字符串，xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-func (u UUID) String() string {
-	var buf [36]byte
-	u.HexWithHyphen(buf[:])
-	return string(buf[:])
+func (u *UUID) String() string {
+	return u.HexWithHyphen()
 }
