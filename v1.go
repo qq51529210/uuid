@@ -40,22 +40,22 @@ func SetRandomNode() {
 }
 
 // 版本1，机器的时间戳和Node决定(默认是MAC地址)
-func (this UUID) V1() {
+func (u UUID) V1() {
 	// timestamp
 	ts := uint64(time.Now().UTC().UnixNano())
 	// time low
-	binary.BigEndian.PutUint32(this[0:], uint32(ts))
+	binary.BigEndian.PutUint32(u[0:], uint32(ts))
 	// time mid
-	binary.BigEndian.PutUint16(this[4:], uint16(ts>>32))
+	binary.BigEndian.PutUint16(u[4:], uint16(ts>>32))
 	// time high and version
-	binary.BigEndian.PutUint16(this[6:], uint16(ts>>48))
+	binary.BigEndian.PutUint16(u[6:], uint16(ts>>48))
 	// clock
 	_clock++
-	binary.BigEndian.PutUint16(this[8:], _clock)
+	binary.BigEndian.PutUint16(u[8:], _clock)
 	// node
-	copy(this[10:], _node[0:])
+	copy(u[10:], _node[0:])
 	// version & variant
-	this.initVersionAndVariant(0x1f)
+	u.initVersionAndVariant(0x1f)
 }
 
 func V1() string {

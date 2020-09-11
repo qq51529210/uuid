@@ -15,14 +15,14 @@ func init() {
 }
 
 // 版本3，计算名字和名字空间的sha1散列值
-func (this *UUID) V5(namespace, name []byte) {
+func (u *UUID) V5(namespace, name []byte) {
 	hash := _sha1.Get().(hash.Hash)
 	hash.Write(namespace)
 	hash.Write(name)
-	copy(this[0:], hash.Sum(nil))
+	copy(u[0:], hash.Sum(nil))
 	_sha1.Put(hash)
 	// version & variant
-	this.initVersionAndVariant(0x5f)
+	u.initVersionAndVariant(0x5f)
 }
 
 func V5(namespace, name []byte) string {
