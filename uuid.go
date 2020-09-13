@@ -8,7 +8,7 @@ import (
 type UUID [16 + 36]byte
 
 var (
-	hexTable = []byte("0123456789ABCDEF")
+	hexTable = []byte("0123456789abcdef")
 )
 
 func (u *UUID) initVersionAndVariant(n byte) {
