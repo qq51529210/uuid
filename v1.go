@@ -58,8 +58,11 @@ func (u *UUID) V1() {
 	u.initVersionAndVariant(0x1f)
 }
 
-func V1() string {
+func V1(hyphen bool) string {
 	var uuid UUID
 	uuid.V1()
-	return uuid.String()
+	if hyphen{
+		return uuid.HexWithHyphen()
+	}
+	return uuid.Hex()
 }

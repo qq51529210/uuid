@@ -5,24 +5,30 @@ import (
 )
 
 func Test_V1(t *testing.T) {
-	t.Log(V1())
+	t.Log(V1(true))
+	t.Log(V1(false))
 }
 
 func Test_V2(t *testing.T) {
-	t.Log(V2_GID())
-	t.Log(V2_UID())
+	t.Log(V2gid(true))
+	t.Log(V2gid(false))
+	t.Log(V2uid(true))
+	t.Log(V2uid(false))
 }
 
 func Test_V3(t *testing.T) {
-	t.Log(V3([]byte("v3-namesapce"), []byte("v3-name")))
+	t.Log(V3([]byte("v3-namesapce"), []byte("v3-name"),true))
+	t.Log(V3([]byte("v3-namesapce"), []byte("v3-name"),false))
 }
 
 func Test_V4(t *testing.T) {
-	t.Log(V4())
+	t.Log(V4(true))
+	t.Log(V4(false))
 }
 
 func Test_V5(t *testing.T) {
-	t.Log(V5([]byte("v5-namesapce"), []byte("v5-name")))
+	t.Log(V5([]byte("v5-namesapce"), []byte("v5-name"),true))
+	t.Log(V5([]byte("v5-namesapce"), []byte("v5-name"),false))
 }
 
 func BenchmarkUUID_V1(b *testing.B) {

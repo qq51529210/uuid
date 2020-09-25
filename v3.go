@@ -26,8 +26,11 @@ func (u *UUID) V3(namespace, name []byte) {
 	u.initVersionAndVariant(0x3f)
 }
 
-func V3(namespace, name []byte) string {
+func V3(namespace, name []byte, hyphen bool) string {
 	var uuid UUID
 	uuid.V3(namespace, name)
-	return uuid.String()
+	if hyphen {
+		return uuid.HexWithHyphen()
+	}
+	return uuid.Hex()
 }

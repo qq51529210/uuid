@@ -7,14 +7,9 @@ import (
 )
 
 var (
-	_gid int
-	_uid int
-)
-
-func init() {
 	_gid = os.Getgid()
 	_uid = os.Getuid()
-}
+)
 
 // 版本2，和版本1相同，但会把时间戳的前4位置换为POSIX的UID或GID
 func (u *UUID) V2(id int) {
@@ -45,20 +40,29 @@ func (u *UUID) V2_UID() {
 	u.V2(_uid)
 }
 
-func V2(id int) string {
+func V2(id int, hyphen bool) string {
 	var uuid UUID
 	uuid.V2(id)
-	return uuid.String()
+	if hyphen {
+		return uuid.HexWithHyphen()
+	}
+	return uuid.Hex()
 }
 
-func V2_GID() string {
+func V2gid(hyphen bool) string {
 	var uuid UUID
 	uuid.V2_GID()
-	return uuid.String()
+	if hyphen {
+		return uuid.HexWithHyphen()
+	}
+	return uuid.Hex()
 }
 
-func V2_UID() string {
+func V2uid(hyphen bool) string {
 	var uuid UUID
 	uuid.V2_UID()
-	return uuid.String()
+	if hyphen {
+		return uuid.HexWithHyphen()
+	}
+	return uuid.Hex()
 }
