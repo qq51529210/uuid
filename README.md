@@ -14,10 +14,14 @@
 goos: darwin
 goarch: amd64
 pkg: github.com/qq51529210/uuid
-BenchmarkUUID_V1-4   	13024394	        90.2 ns/op	       0 B/op	       0 allocs/op
-BenchmarkUUID_V2-4   	12351549	        89.2 ns/op	       0 B/op	       0 allocs/op
-BenchmarkUUID_V3-4   	 6080900	       183 ns/op	      16 B/op	       1 allocs/op
-BenchmarkUUID_V4-4   	36116908	        31.2 ns/op	       0 B/op	       0 allocs/op
-BenchmarkUUID_V5-4   	 4344318	       268 ns/op	      32 B/op	       1 allocs/op
+BenchmarkUUID_V1-4              12868052                88.7 ns/op             0 B/op          0 allocs/op
+BenchmarkUUID_V2GID-4           13302963                88.7 ns/op             0 B/op          0 allocs/op
+BenchmarkUUID_V2UID-4           13163793                88.4 ns/op             0 B/op          0 allocs/op
+BenchmarkUUID_V3-4               5967187               196 ns/op              48 B/op          1 allocs/op
+BenchmarkUUID_V4-4              49302597                24.0 ns/op             0 B/op          0 allocs/op
+BenchmarkUUID_V5-4               5272489               226 ns/op              48 B/op          1 allocs/op
+PASS
+ok      github.com/qq51529210/uuid      7.908s
+linwenbin@linwenbins-mac uuid % 
 PASS
 ```
