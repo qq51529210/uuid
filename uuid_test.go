@@ -50,6 +50,12 @@ func Test_V5(t *testing.T) {
 	t.Log(LowerV5WithoutHyphen(namespace, data))
 }
 
+func Test_SnowflakeID(t *testing.T) {
+	id1 := SnowflakeID()
+	id2 := SnowflakeID()
+	t.Log(id1, id2)
+}
+
 func BenchmarkUUID_V1(b *testing.B) {
 	var id UUID
 	b.ReportAllocs()
@@ -105,5 +111,15 @@ func BenchmarkUUID_V5(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		id.V5(namespace, name)
+	}
+}
+
+func BenchmarkSnowflakeID(b *testing.B) {
+	SetSnowflakeGroupID(1)
+	SetSnowflakeMechineID(2)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		SnowflakeID()
 	}
 }
