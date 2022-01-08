@@ -27,14 +27,13 @@ func SetSnowflakeMechineID(id byte) {
 }
 
 func SnowflakeID() (n uint64) {
-	// 时间戳
 	timestamp := time.Now().UTC().Unix()
-	// 判断在这个毫秒内生成的个数
+	// Number of generated in this millisecond.
 	var serialNumber uint16
 	snowflakeMutex.Lock()
 	if timestamp == snowflakeTimestamp {
 		snowflakeSerialNumber++
-		// 1ms内生成的个数太多了，加1ms
+		// Too many
 		if snowflakeSerialNumber > snowflakeMaxSerialNumber {
 			snowflakeSerialNumber = 0
 			timestamp++

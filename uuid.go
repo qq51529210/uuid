@@ -50,8 +50,7 @@ func init() {
 	}
 }
 
-// 设置node，默认是取第一个网卡的MAC地址，不同node，生成的uuid就不一样。
-// 虽然说不同的机器应该不会出现网卡MAC地址相同的情况，但是服务如果在容器中就难说了。
+// Set version-1 node. This value was set with MAC address by default.
 func SetV1Node(node [6]byte) {
 	copy(v1Node[0:], node[0:])
 }
