@@ -79,8 +79,9 @@ func SnowflakeIdString() string {
 	id := SnowflakeId()
 	b := make([]byte, 20)
 	i := 0
+	m := uint64(0)
 	for {
-		m := id % uint64(len(hexBytes))
+		m = id % uint64(len(hexBytes))
 		b[i] = hexBytes[m]
 		i++
 		id = id / uint64(len(hexBytes))
