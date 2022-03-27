@@ -12,7 +12,7 @@ const (
 
 var (
 	snowflakeMutex        sync.Mutex
-	snowflakeTimestamp    int64
+	snowflakeTimestamp    int64 = time.Now().UTC().Unix()
 	snowflakeSerialNumber uint16
 	snowflakeGroupID      byte
 	snowflakeMechineID    byte
@@ -20,7 +20,7 @@ var (
 )
 
 func init() {
-	hexBytes = make([]byte, 10+('z'-'a')+('Z'-'A'))
+	hexBytes = make([]byte, 10+('z'-'a'+1)+('Z'-'A'+1))
 	n := 0
 	for i := byte('0'); i <= '9'; i++ {
 		hexBytes[n] = i
@@ -57,6 +57,8 @@ func SnowflakeId() (n uint64) {
 			timestamp++
 			snowflakeTimestamp = timestamp
 		}
+	} else {
+		snowflakeTimestamp = timestamp
 	}
 	serialNumber = snowflakeSerialNumber
 	snowflakeMutex.Unlock()
