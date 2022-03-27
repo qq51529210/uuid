@@ -16,7 +16,25 @@ var (
 	snowflakeSerialNumber uint16
 	snowflakeGroupID      byte
 	snowflakeMechineID    byte
+	hexBytes              []byte
 )
+
+func init() {
+	hexBytes = make([]byte, 10+('z'-'a')+('Z'-'A'))
+	n := 0
+	for i := byte('0'); i <= '9'; i++ {
+		hexBytes[n] = i
+		n++
+	}
+	for i := byte('a'); i <= 'z'; i++ {
+		hexBytes[n] = i
+		n++
+	}
+	for i := byte('A'); i <= 'Z'; i++ {
+		hexBytes[n] = i
+		n++
+	}
+}
 
 func SetSnowflakeGroupID(id byte) {
 	snowflakeGroupID = id & 0b0011111
@@ -26,7 +44,7 @@ func SetSnowflakeMechineID(id byte) {
 	snowflakeMechineID = id & 0b0011111
 }
 
-func SnowflakeID() (n uint64) {
+func SnowflakeId() (n uint64) {
 	timestamp := time.Now().UTC().Unix()
 	// Number of generated in this millisecond.
 	var serialNumber uint16
@@ -53,4 +71,20 @@ func SnowflakeID() (n uint64) {
 	// 1bit 0
 	n &= snowflake63Bit
 	return n
+}
+
+func SnowflakeIdString() string {
+	id := SnowflakeId()
+	b := make([]byte, 20)
+	i := 0
+	for {
+		m := id % uint64(len(hexBytes))
+		b[i] = hexBytes[m]
+		i++
+		id = id / uint64(len(hexBytes))
+		if id == 0 {
+			break
+		}
+	}
+	return string(b[:i])
 }
