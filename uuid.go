@@ -32,14 +32,16 @@ var (
 
 func init() {
 	// init node with MAC address
-	addr, err := net.Interfaces()
+	ifs, err := net.Interfaces()
 	if nil != err {
 		panic(err)
 	}
-	for i := 0; i < len(addr); i++ {
-		if len(addr[i].HardwareAddr) >= 6 {
-			copy(v1Node[0:], addr[i].HardwareAddr)
-			break
+	for i := 0; i < len(ifs); i++ {
+		if ifs[i].Flags&net.FlagUp != 0 && ifs[i].Flags&net.FlagLoopback != 0 {
+			if len(ifs[i].HardwareAddr) >= 6 {
+				copy(v1Node[0:], ifs[i].HardwareAddr)
+				break
+			}
 		}
 	}
 	v3Pool.New = func() interface{} {
