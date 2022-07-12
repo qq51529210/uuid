@@ -44,7 +44,7 @@ func SetSnowflakeMechineID(id byte) {
 	snowflakeMechineID = id & 0b0011111
 }
 
-func SnowflakeId() (n uint64) {
+func SnowflakeID() (n uint64) {
 	timestamp := time.Now().UTC().Unix()
 	// Number of generated in this millisecond.
 	var serialNumber uint16
@@ -75,8 +75,8 @@ func SnowflakeId() (n uint64) {
 	return n
 }
 
-func SnowflakeIdString() string {
-	id := SnowflakeId()
+func SnowflakeIDString() string {
+	id := SnowflakeID()
 	b := make([]byte, 20)
 	i := 0
 	m := uint64(0)
